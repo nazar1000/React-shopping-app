@@ -3,11 +3,11 @@ const mysql = require("mysql");
 const cors = require("cors");
 
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 const session = require('express-session');
 
 const bcrypt = require("bcrypt");
-const nodemon = require("nodemon");
+// const nodemon = require("nodemon");
 const saltRounds = 10;
 
 const jwt = require("jsonwebtoken");

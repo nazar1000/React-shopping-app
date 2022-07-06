@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+## React shopping app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### As my first react project I decided to build a shopping app.
+#### I am not that great at the design, so excuse me for that.
 
-## Available Scripts
+### Pages
 
-In the project directory, you can run:
+#### It has a home page that gets a list of categories from database.
+#### A product page that gets a list of products from database.
+#### A search that displays products based on the searched key.
+#### A login page that checks database for the user informations or if the user exists and returns a token.
+#### A register page where user can create their account that will be saved in the database.
+#### A basket page that displayes added items. (No functionality for checkout)
 
-### `npm start`
+### Technologies
+#### For the design part I used react ability to use components to break different things into smaller parts.
+#### In order to make the page responsive I made sure to design for mobile first, I then used media quaries and js to make it work on different sizes displays.
+#### For a backend I have used epress JS to create a local server.
+#### For the database I used MySQL.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Features 
+#### For simplicity reasons the images are random generated but the functionality for downloading images from database (base 64 format) is implemented.
+#### For the registration, I encrypted the password using hash.
+#### For the login I implemented access token that expires after sometime. (Better secret needs to be implemented for security).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Overview 
+#### As this was my first react project I learned a lot about this framework, I saw its adventages but also some of its disadvantages. However, there is still a lot that could be improved and added. 
+#### After combining all the differnt aspects I coded I think I created a neat little website, although the design part could have been a little better.
