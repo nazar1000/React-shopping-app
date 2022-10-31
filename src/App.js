@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useCookies } from 'react-cookie';
+import { Routes, Route } from "react-router-dom"
+
 
 import './styles/App.css';
 import NavBar from './components/navBar';
@@ -8,6 +10,8 @@ import Home from './pages/Home';
 import Products from './pages/Products';
 import Login from './pages/Login';
 import Basket from './pages/Basket';
+import useAxiosData from './hooks/useAxiosData';
+import Preview from "./pages/Preview"
 
 function App() {
   const [cookie, setCookie, removeCookie] = useCookies("");
@@ -19,10 +23,11 @@ function App() {
   const [loginStatus, setLoginStatus] = useState(cookie.user_name != undefined ? true : false)
   //products
   const [productList, setProductList] = useState("");
-  const [productCategories, setProductCategories] = useState("");
+
+  const { loading, productData } = useAxiosData() //products, categories
+
 
   const [basketList, setBasketList] = useState([]);
-  const [basketTotal, setBasketTotal] = useState(0);
   const [basketItems, setBasketItems] = useState(0);
 
   const [previewInfo, setPreviewInfo] = useState("");
@@ -40,27 +45,31 @@ function App() {
 
   }, [])
 
+  // useEffect(() => {
+  //   //returns product list
+  //   Axios.get('http://127.0.0.1:3001/api/products').then((response) => {
+  //     if (response.data.length > 0) {
+  //       setProductList(response.data)
+  //       // console.log(response.data);
+  //     }
+  //   });
+
+  // }, [])
+
+  // useEffect(() => {
+  //   //returns product list
+  //   Axios.get('http://127.0.0.1:3001/api/categories').then((response) => {
+  //     if (response.data.length > 0) {
+  //       setProductCategories(response.data);
+  //       // console.log(response.data);
+  //     }
+  //   });
+
+  // }, [])
+
   useEffect(() => {
-    //returns product list
-    Axios.get('http://127.0.0.1:3001/api/products').then((response) => {
-      if (response.data.length > 0) {
-        setProductList(response.data)
-        // console.log(response.data);
-      }
-    });
-
-  }, [])
-
-  useEffect(() => {
-    //returns product list
-    Axios.get('http://127.0.0.1:3001/api/categories').then((response) => {
-      if (response.data.length > 0) {
-        setProductCategories(response.data);
-        // console.log(response.data);
-      }
-    });
-
-  }, [])
+    // console.log(productData)
+  }, [loading])
 
 
   //handles form change
@@ -149,86 +158,46 @@ function App() {
     setLoginStatus(false);
   }
 
-  const addToBasket = (product_id, product_name, desc, price, quantity, option = "add") => {
-    //Checks if basket exists and gets values if it does
-    // if (localStorage.getItem(basket) != null) {
-    //   basket = JSON.parse(localStorage.getItem(basket));
-    // }
-    // basket.push(product_id) //adding new value
-    // //saving new value in localstorage
-    // localStorage.setItem('basket', JSON.stringify(basket));
 
-    let extra = 0;
-    if (option == "add") extra = 1;
-    else if (option == "minus") extra = -1;
+  const addToBasket = (newItem = [], newQuantity = 1) => {
 
-    if (basketList.length == 0) {
+    // console.log(newItem)
+    const item = basketList.filter((item) => item.id === newItem.product_id);
 
-      //add to basket
+    console.log(item)
+    console.log(basketList)
+
+    //Update basket if in basket
+    if (item.length > 0) {
+      const newQuantityNotZero = (item[0].quantity + newQuantity > 0)
+      if (newQuantityNotZero) {
+
+        setBasketList(basketList => (
+          basketList.map(el => (el.id === newItem.product_id ? { ...el, quantity: el.quantity + newQuantity } : el))
+        ))
+      } else {
+        //Delete item
+        setBasketList((basketList) => basketList.filter(item => item.id !== newItem.id))
+      }
+
+    } else {
+      // if it is not add
       setBasketList(() => ([
         ...basketList,
         {
-          "id": product_id,
-          "name": product_name,
-          "description": desc,
-          "quantity": extra,
-          "price": price,
+          "id": newItem.product_id,
+          "name": newItem.product_name,
+          "description": newItem.desc,
+          "quantity": newQuantity,
+          "price": newItem.price,
         }
-      ]));
-
-      setBasketItems(basketItems + 1);
-      setBasketTotal(basketTotal + 1);
-      return;
-
-    } else {
-      for (let i = 0; i < basketItems; i++) {
-        if (basketList[i].id == product_id) {
-          if (basketList[i].quantity + extra < 1) {
-
-            //removes product from basket
-            setBasketList((arr) =>
-              arr.filter(element => {
-                return element.id != product_id;
-              }),
-            );
-
-            setBasketItems(basketItems - 1);
-            setBasketTotal(basketTotal - 1);
-            break;
-          }
-
-          //Update product quantity
-          const temp = [...basketList];
-          const index = temp.findIndex(index => index.id == product_id)
-          temp[index].quantity = extra + basketList[i].quantity;
-
-          setBasketList(temp);
-          setBasketTotal(basketTotal + extra)
-          break;
-        }
-
-        if (i == basketList.length - 1) {
-
-          //adds new product to basket
-          setBasketList(() => ([
-            ...basketList,
-            {
-              "id": product_id,
-              "name": product_name,
-              "description": desc,
-              "quantity": extra,
-              "price": price,
-            }
-          ]));
-
-          setBasketItems(basketItems + 1);
-          setBasketTotal(basketTotal + 1);
-          break;
-        }
-      }
+      ]))
     }
-    console.log(basketTotal);
   }
+
+
+
+
 
   const search = (filterValue) => {
     console.log(filterValue)
@@ -269,14 +238,54 @@ function App() {
 
   return (
     <div className="App">
-      <header>
+      {/* <header>
         <NavBar setPage={setPage} setFormType={setFormType} basketTotal={basketTotal}
           search={search} cookie={cookie} signOut={signOut} />
-      </header>
+      </header> */}
 
       <div className='app-container'>
 
-        {page == "home" &&
+        <Routes>
+          <Route path='/' element={
+            <NavBar setPage={setPage} setFormType={setFormType} basketTotal={basketList.length}
+              search={search} cookie={cookie} signOut={signOut} />
+          } >
+
+            <Route path='home' element={
+              <Home productCategories={productData?.categories} />
+            } />
+
+
+            <Route path="products" element={
+              <Products formType={formType} setFormType={setFormType} productList={productData.products} categories={productData.categories}
+                setPreview={setPreview} previewInfo={previewInfo} addToBasket={addToBasket} />}
+            />
+
+            <Route path="products/:category" element={
+              <Products formType={formType} setFormType={setFormType} productList={productData.products} categories={productData.categories}
+                setPreview={setPreview} previewInfo={previewInfo} addToBasket={addToBasket} />}
+            />
+
+            <Route path="products/:category/:product_id" element={
+              <Preview addToBasket={addToBasket} />
+            }
+            />
+
+
+            <Route path="login" element={
+              <Login formType={formType} handleLogin={handleLogin} handleChange={handleChange} setFormType={setFormType} handleRegister={handleRegister} loginStatus={loginStatus} />}
+            />
+
+            <Route path="basket" element={
+              <Basket basketItems={basketItems} basketList={basketList} addToBasket={addToBasket} />}
+            />
+
+          </Route>
+        </Routes>
+
+
+
+        {/* {page == "home" &&
           <Home productCategories={productCategories} />
         }
 
@@ -290,7 +299,7 @@ function App() {
 
         {page == "basket" &&
           <Basket basketItems={basketItems} basketList={basketList} addToBasket={addToBasket} />
-        }
+        } */}
       </div>
     </div>
   );
