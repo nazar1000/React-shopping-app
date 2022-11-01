@@ -4,12 +4,20 @@ import logo from '../icons/logo.png'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from "react-router-dom"
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 
-function NavBar(props) {
+type NavBarProps = {
+  basketTotal: number,
+  search: Function,
+  cookie: any,
+  signOut: Function,
+}
+
+function NavBar(props: NavBarProps) {
   const [mobileNav, setMobileNav] = useState(window.innerWidth < 510 ? true : false);
   const [openNav, setOpenNav] = useState(window.innerWidth < 510 ? false : true);
   const [windowSize, setWindowSize] = useState(window.innerWidth);
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -46,9 +54,9 @@ function NavBar(props) {
               <Link to="products">Product</Link> </li>
             {/* <h3 onClick={() => { closeNav(); props.setPage("products"); props.setFormType("products") }}>Product</h3></li> */}
 
-            {windowSize >= "750" &&
+            {windowSize >= 750 &&
               <div className='search_bar'>
-                <input type="text" onChangeCapture={(e) => { props.search(e.target.value) }} placeholder='Search'></input>
+                <input type="text" onChange={(e) => { props.search(e.target.value) }} placeholder='Search'></input>
                 <img src={search_icon} />
               </div>}
             <div id='login-menu'>
@@ -71,7 +79,7 @@ function NavBar(props) {
               }
 
               <Link to="basket">
-                <div className='basket_button' onClick={() => { closeNav(); props.setPage("basket") }}>
+                <div className='basket_button' onClick={() => { closeNav(); navigate("/basket") }}>
                   <img src={basket_icon}></img>
                   <h3>{props.basketTotal}</h3>
                 </div>
@@ -81,9 +89,9 @@ function NavBar(props) {
 
           </ul>
         }
-        {windowSize <= "749" &&
+        {windowSize <= 749 &&
           <div className='search_bar'>
-            <input type="text" onChangeCapture={(e) => { props.search(e.target.value) }} placeholder='Search'></input>
+            <input type="text" value="" onChange={(e) => { props.search(e.target.value) }} placeholder='Search'></input>
             <img src={search_icon} />
           </div>}
       </div>

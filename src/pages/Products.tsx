@@ -3,11 +3,17 @@ import '../styles/product.css';
 import { useEffect, useState } from 'react';
 import { useNavigate, Outlet, useParams } from "react-router-dom"
 
-function Products(props) {
+type ProductsProps = {
+  productList: {}[],
+  categories: {}[],
+  addToBasket: Function
+}
+
+function Products(props: ProductsProps) {
   const { category } = useParams()
 
   const [filter, setFilter] = useState(category ? category : "all")
-  const [filteredData, setFilteredData] = useState([])
+  const [filteredData, setFilteredData] = useState<{}[]>([])
 
   const navigate = useNavigate();
 
@@ -16,13 +22,13 @@ function Products(props) {
     if (filter === "all") {
       setFilteredData(props.productList)
     } else {
-      let filteredProductList = props.productList.filter(product => product.category === filter);
+      let filteredProductList = props.productList.filter((product: any) => product.category === filter);
       setFilteredData(filteredProductList)
     }
 
   }, [filter, props.productList])
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (e.target.value === "all") navigate(`/products`)
     else navigate(`/products/${e.target.value}`)
     setFilter(e.target.value)
@@ -36,7 +42,7 @@ function Products(props) {
       <div className='filter'>
         <select value={filter} onChange={handleChange}>
           <option value="all">All</option>
-          {props.categories.map(element => {
+          {props.categories.map((element: any) => {
             return <option key={element.category} value={element.category}>{element.category}</option>
           })}
         </select>
@@ -46,7 +52,7 @@ function Products(props) {
         <h1>Results</h1>
         <div className='product-list'>
 
-          {props.productList && filteredData.map((product, key) => {
+          {props.productList && filteredData.map((product: any) => {
             let image = "https://loremflickr.com/250/200/products?random=" + product.product_id;
             // let image = product.product_image;
             return (

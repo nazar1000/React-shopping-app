@@ -1,9 +1,13 @@
 import '../styles/home.css';
-import { Outlet } from "react-router-dom"
+import { Outlet, useNavigate } from "react-router-dom"
 
-function Home(props) {
+type HomeProps = {
+  productCategories: {}[]
+}
 
-  console.log("rendering me")
+function Home(props: HomeProps) {
+  const navigate = useNavigate()
+
   return (
 
     <div className="Home">
@@ -19,12 +23,12 @@ function Home(props) {
         <div className='categories_container'>
           <h2>Our products</h2>
 
-          {props.productCategories && props.productCategories.map((product, key) => {
+          {props.productCategories && props.productCategories.map((product: any, key) => {
             let image = "https://loremflickr.com/250/200/games?random=" + product.product_id;
             // let image = product.product_image;
             return (
 
-              <div key={product.product_id} className='product_category'>
+              <div key={product.product_id} className='product_category' onClick={() => navigate(`/products/${product.category}`)}>
                 <div className='product_category_image'>
                   <img src={image} />
                   <label>Sample image</label>
