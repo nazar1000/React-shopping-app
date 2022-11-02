@@ -1,5 +1,5 @@
 import '../styles/preview.css';
-import { Routes, Route, useParams, useNavigate } from 'react-router-dom';
+import { Routes, Route, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useAxiosId from '../hooks/useAxiosId';
 
@@ -11,6 +11,7 @@ function Preview(props: PreviewProps) {
   let { product_id } = useParams();
   const { loading, product } = useAxiosId(product_id)
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     // console.log(product)
@@ -26,12 +27,18 @@ function Preview(props: PreviewProps) {
     })
   }
 
+  const goBackButton = () => {
+    if (product_id) {
+      let newLocation = location.pathname.slice(0, location.pathname.length - product_id?.toString().length)
+      navigate(newLocation)
+    }
+  }
 
   return (
     <div id='preview_container'>
       {product && product?.product_id !== undefined &&
         <>
-          <button className='back-button' onClick={() => { navigate(`/products/${product.category}`) }}>Go back to {product.category}</button>
+          <button className='back-button' onClick={() => goBackButton()}>Go back to {product.category}</button>
 
           <div id='preview-inner-div'>
             <div id='preview-image-div'>

@@ -142,22 +142,6 @@ function App() {
     }
   }
 
-  const search = (filterValue: string) => {
-    console.log(filterValue)
-    let filter = filterValue.toUpperCase();
-    let products = document.getElementsByClassName("product");
-    // for (let i = 0; i < products.length; i++) {
-    //   let productName = products[i].getElementsByClassName("prd_desc_container")[0].firstChild.innerHTML.toUpperCase();
-
-    //   if (productName.indexOf(filter) > -1) {
-    //     // console.log("yes")
-    //     products[i].style.display = "block";
-    //   } else {
-    //     products[i].style.display = "none";
-    //   }
-    // }
-
-  }
 
   return (
     <div className="App">
@@ -167,7 +151,7 @@ function App() {
         <Routes>
           <Route path='/' element={
             <NavBar basketTotal={basketList.length}
-              search={search} cookie={cookie} signOut={signOut} />
+              cookie={cookie} signOut={signOut} />
           } >
 
 
@@ -179,17 +163,43 @@ function App() {
             <Route path="products" element={
               <Products productList={productData.products} categories={productData.categories}
                 addToBasket={addToBasket} />}
-            />
+            >
+            </Route>
 
-            <Route path="products/:category" element={
+            <Route path="products/:searchQuery" element={
               <Products productList={productData.products} categories={productData.categories}
                 addToBasket={addToBasket} />}
             />
 
-            <Route path="products/:category/:product_id" element={
+            <Route path="products/:searchQuery/:category" element={
+              <Products productList={productData.products} categories={productData.categories}
+                addToBasket={addToBasket} />}
+            />
+
+            <Route path="products/:searchQuery/:category/:product_id" element={
               <Preview addToBasket={addToBasket} />
             }
             />
+            {/* 
+            <Route path="products/:category" element={
+              <Products productList={productData.products} categories={productData.categories}
+                addToBasket={addToBasket} />}
+            /> */}
+
+            {/* 
+            <Route path="products/:searchQuery/:category" element={
+              <Products productList={productData.products} categories={productData.categories}
+                addToBasket={addToBasket} />}
+            /> */}
+
+            {/* <Route path="products/:searchQuery/:category/:product_id" element={
+              <Preview addToBasket={addToBasket} />
+            } */}
+            {/* /> */}
+
+
+
+
 
 
             <Route path="login" element={

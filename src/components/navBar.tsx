@@ -8,7 +8,7 @@ import { Outlet, useNavigate } from 'react-router-dom';
 
 type NavBarProps = {
   basketTotal: number,
-  search: Function,
+  // search: Function,
   cookie: any,
   signOut: Function,
 }
@@ -17,6 +17,7 @@ function NavBar(props: NavBarProps) {
   const [mobileNav, setMobileNav] = useState(window.innerWidth < 510 ? true : false);
   const [openNav, setOpenNav] = useState(window.innerWidth < 510 ? false : true);
   const [windowSize, setWindowSize] = useState(window.innerWidth);
+  const [searchValue, setSearchValue] = useState("")
   const navigate = useNavigate();
 
 
@@ -31,6 +32,13 @@ function NavBar(props: NavBarProps) {
 
   const closeNav = () => {
     if (windowSize < 510) setOpenNav(false);
+  }
+
+  const handleSearch = (e?: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e === undefined || e.key === "Enter") {
+      if (searchValue !== "") navigate(`/products/${searchValue}`)
+      else navigate(`/products`)
+    }
   }
 
   return (
@@ -56,8 +64,8 @@ function NavBar(props: NavBarProps) {
 
             {windowSize >= 750 &&
               <div className='search_bar'>
-                <input type="text" onChange={(e) => { props.search(e.target.value) }} placeholder='Search'></input>
-                <img src={search_icon} />
+                <input type="text" onChange={(e) => setSearchValue(e.target.value)} onKeyDown={handleSearch} placeholder='Search' value={searchValue}></input>
+                <img src={search_icon} onClick={() => handleSearch()} />
               </div>}
             <div id='login-menu'>
 
@@ -91,7 +99,7 @@ function NavBar(props: NavBarProps) {
         }
         {windowSize <= 749 &&
           <div className='search_bar'>
-            <input type="text" value="" onChange={(e) => { props.search(e.target.value) }} placeholder='Search'></input>
+            <input type="text" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} placeholder='Search'></input>
             <img src={search_icon} />
           </div>}
       </div>
