@@ -23,17 +23,17 @@ function Home(props: HomeProps) {
         <div className='categories_container'>
           <h2>Our products</h2>
 
-          {props.productCategories && props.productCategories.map((product: any, key) => {
-            let image = "https://loremflickr.com/250/200/games?random=" + product.product_id;
+          {props.productCategories && props.productCategories.map((category: any, key) => {
+            let image = "https://loremflickr.com/250/200/games?random=" + 32;
             // let image = product.product_image;
             return (
 
-              <div key={product.product_id} className='product_category' onClick={() => navigate(`/products/${product.category}`)}>
+              <div key={category.id} className='product_category' onClick={() => navigate(`/products/search=/${category.category}`)}>
                 <div className='product_category_image'>
-                  <img src={image} />
+                  <img src={category.image} />
                   <label>Sample image</label>
                 </div>
-                <h3>{product.category}</h3>
+                <h3>{category.category}</h3>
               </div>
 
             )

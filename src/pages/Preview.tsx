@@ -2,6 +2,7 @@ import '../styles/preview.css';
 import { Routes, Route, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import useAxiosId from '../hooks/useAxiosId';
+import useFetchID from '../hooks/useFetchID';
 
 type PreviewProps = {
   addToBasket: Function
@@ -9,20 +10,22 @@ type PreviewProps = {
 
 function Preview(props: PreviewProps) {
   let { product_id } = useParams();
-  const { loading, product } = useAxiosId(product_id)
+  // const { loading, product } = useAxiosId(product_id)
+  const { loading, product } = useFetchID(product_id)
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    // console.log(product)
+    console.log(product)
+
   }, [product])
 
   const prepareAddToBasket = (product: any) => {
     props.addToBasket({
-      id: product.product_id,
-      name: product.product_name,
+      id: product.id,
+      name: product.title,
       description: product.description,
-      quantity: product.quantity,
+      quantity: 1,
       price: product.price
     })
   }
@@ -36,22 +39,23 @@ function Preview(props: PreviewProps) {
 
   return (
     <div id='preview_container'>
-      {product && product?.product_id !== undefined &&
+      {product && product.id !== undefined &&
         <>
           <button className='back-button' onClick={() => goBackButton()}>Go back to {product.category}</button>
 
           <div id='preview-inner-div'>
             <div id='preview-image-div'>
               {/* <img src={product.product_image} /> */}
-              <img src=" https://loremflickr.com/250/200/games?random=" />
+              {/* <img src=" https://loremflickr.com/250/200/games?random=" /> */}
+              <img src={product.image} />
             </div>
             <div id='preview-info-div'>
-              <h2 className='product-name'>{product.product_name}</h2>
+              <h2 className='product-name'>{product.title}</h2>
               <h3 className='product-category'>Category: {product.category}</h3>
-              <h4 className='product-code'>Product no: {product.product_id} </h4>
-              <h3 className='product-stock'>Available: {product.quantity}</h3>
+              <h4 className='product-code'>Product no: {product.id} </h4>
+              <h3 className='product-stock'>Available: {10}</h3>
               <h3 className='product-desc'>{product.description}</h3>
-              <h3 className='product-price'>price: {product.price}</h3>
+              <h3 className='product-price'>£{product.price}</h3>
               <div className='add-button button-style' onClick={() => prepareAddToBasket(product)}>Add to basket</div>
 
             </div>

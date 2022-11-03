@@ -13,6 +13,7 @@ import Register from './pages/Register';
 import Basket from './pages/Basket';
 import useAxiosData from './hooks/useAxiosData';
 import Preview from "./pages/Preview"
+import useFetchData from './hooks/useFetchData';
 
 type BasketListType = {
   "id": number,
@@ -29,13 +30,14 @@ function App() {
   const [loginStatus, setLoginStatus] = useState(cookie.user_name != undefined ? true : false)
   const [userInfo, setUserInfo] = useState<any>()
 
-  const { loading, productData } = useAxiosData() //products, categories
-
+  // const { loading, productData } = useAxiosData() //products, categories
+  const { loading, productData } = useFetchData() //products, categories
 
   const [basketList, setBasketList] = useState<BasketListType>([]);
   const [basketItems, setBasketItems] = useState(0);
 
   Axios.defaults.withCredentials = true;
+
   useEffect(() => {
     //Sets cookies (does not work in non https environment)
     // Axios.get('http://127.0.0.1:3001/api/login').then((response) => {
