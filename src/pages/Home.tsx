@@ -10,9 +10,9 @@ function Home(props: HomeProps) {
 
   return (
 
-    <div className="Home">
+    <div className="home">
       <div className='home_inner_container'>
-        <h1>Welcome</h1>
+        <h1>ShopA</h1>
         <div id='about-text'>
           <p> About this page ... Id deserunt pariatur sit laborum excepteur quis enim culpa elit voluptate cillum.
             Mollit do commodo dolore excepteur. Quis laboris dolore ea culpa eu ullamco ex exercitation dolor reprehenderit nisi mollit.

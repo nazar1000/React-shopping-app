@@ -1,9 +1,9 @@
 .App {
-  /* background-color: #ffc574; */
   min-height: 100vh;
   background-image: url(../icons/sky.jpg);
   /* (CC0 License)  Photo by Pixabay from Pexels: https://www.pexels.com/photo/white-clouds-531767/*/
   background-size: cover;
+  overflow: auto;
 }
 
 p,
@@ -23,7 +23,7 @@ h6 {
   color: white;
   float: left;
   position: relative;
-  margin-bottom: 20px;
+  /* margin-bottom: 20px; */
 
 }
 
@@ -59,15 +59,21 @@ h6 {
 }
 
 #nav ul li {
-  /* float: left; */
-  padding: 10px 10px;
+  text-align: center;
 }
 
-#nav ul li h3 {
+#nav ul li a {
+  width: 100%;
   cursor: pointer;
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+  padding: 15px 0;
+  display: block;
+
 }
 
-#nav ul li h3:hover {
+#nav ul li a:hover {
   text-decoration: underline;
 }
 
@@ -93,6 +99,8 @@ h6 {
   padding: 7px 4px;
   font-size: 19px;
   float: left;
+  background-color: #aed7f0;
+  border-radius: 5px 0 0 5px;
 
 }
 
@@ -126,6 +134,7 @@ h6 {
   padding: 7px 0;
   font-size: 23px;
   float: left;
+  color: #00a2e8;
 
 }
 
@@ -157,7 +166,12 @@ h6 {
 
   #nav ul li {
     float: left;
-    padding: 20px 10px;
+    padding: 20px 4px;
+  }
+
+  #nav ul li a {
+    display: inline;
+    padding: 15px 5px;
   }
 
   #nav #login-menu {

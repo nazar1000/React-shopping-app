@@ -1,13 +1,20 @@
-.home_inner_container {}
-
-
-.home_inner_container h1 {
-  text-align: center;
-  text-decoration: underline;
-
+.home {
+  float: left;
 }
 
+.home_inner_container {}
 
+.home_inner_container h1 {
+  width: fit-content;
+  padding: 15px;
+  margin: 11px auto 0px auto;
+  text-align: center;
+  color: #00a2e8;
+  background: #121212;
+  text-decoration: underline;
+  text-decoration-color: white;
+  border-radius: 50%;
+}
 
 .home_inner_container #about-text {
   min-width: 260px;
@@ -40,7 +47,6 @@
 }
 
 .product_category {
-  /* width: 300px; */
   margin: 20px;
   float: left;
 }
@@ -54,9 +60,10 @@
 .product_category .product_category_image {
   width: 200px;
   height: 250px;
-  overflow: hidden;
   position: relative;
   background-color: white;
+  border-radius: 5px;
+  overflow: hidden;
 }
 
 .product_category_image img {
