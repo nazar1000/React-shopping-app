@@ -1,11 +1,12 @@
 .product-page {
   width: calc(100%);
   min-width: 300px;
-  max-width: 1300px;
+  // max-width: 1300px;
   /* min-height: 100vh; */
   /* padding: 0 20px; */
   margin: auto;
   overflow: auto;
+  padding-bottom: 20px;
 
   .filter {
     background-color: aliceblue;
@@ -14,28 +15,34 @@
   .filter-inner {
     max-width: 600px;
     margin: auto;
-
     padding: 10px;
 
-    label {
-      width: 80px;
-      color: #121212;
-      display: inline-block;
-      font-weight: bold;
+    .filter-separator {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      border-bottom: 1px solid #00000040;
+      margin-bottom: 5px;
+      padding-bottom: 5px;
+
+      label {
+        min-width: 80px;
+        color: #121212;
+        display: inline-block;
+        font-weight: bold;
+      }
     }
 
-    #filter__category {
-      label {}
 
+    #filter__category {
       #category-input {
         width: 170px;
         font-size: 18px;
+        margin: 0 3px;
       }
     }
 
     #filter__price {
-      label {}
-
       button {
         border: none;
         margin: 3px;
@@ -43,6 +50,7 @@
         // border: 2px solid blue;
         padding: 5px;
         border-radius: 5px;
+        border: 1px solid black;
 
         &:hover {
           box-shadow: 0 0 0 1px black;
@@ -50,7 +58,10 @@
           cursor: pointer;
         }
       }
+    }
 
+    .active {
+      background-color: #ceebf5 !important;
     }
   }
 

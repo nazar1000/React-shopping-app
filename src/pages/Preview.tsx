@@ -15,8 +15,14 @@ function Preview(props: PreviewProps) {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const formatPrice = (price: number) => {
+    let pound = Math.floor(price)
+    let pence = Math.floor((price - pound) * 100)
+    return "" + pound + "." + pence
+  }
+
   useEffect(() => {
-    console.log(product)
+    // console.log(product)
 
   }, [product])
 
@@ -26,7 +32,8 @@ function Preview(props: PreviewProps) {
       name: product.title,
       description: product.description,
       quantity: 1,
-      price: product.price
+      price: product.price,
+      image: product.image
     })
   }
 
@@ -41,9 +48,10 @@ function Preview(props: PreviewProps) {
     <div id='preview_container'>
       {product && product.id !== undefined &&
         <>
-          <button className='back-button' onClick={() => goBackButton()}>Go back to {product.category}</button>
+          <button className='back-button button-style' onClick={() => goBackButton()}> Back to results </button>
 
           <div id='preview-inner-div'>
+
             <div id='preview-image-div'>
               {/* <img src={product.product_image} /> */}
               {/* <img src=" https://loremflickr.com/250/200/games?random=" /> */}
@@ -55,7 +63,7 @@ function Preview(props: PreviewProps) {
               <h4 className='product-code'>Product no: {product.id} </h4>
               <h3 className='product-stock'>Available: {10}</h3>
               <h3 className='product-desc'>{product.description}</h3>
-              <h3 className='product-price'>£{product.price}</h3>
+              <h3 className='product-price'>£{formatPrice(product.price)}</h3>
               <div className='add-button button-style' onClick={() => prepareAddToBasket(product)}>Add to basket</div>
 
             </div>

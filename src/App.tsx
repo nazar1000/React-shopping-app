@@ -94,41 +94,47 @@ function App() {
     name: string,
     description: string,
     quantity: number,
-    price: number
+    price: number,
+    image: string,
 
   }
 
-  const addToBasket = (newItem: AddToBasketType, newQuantity = 1) => {
+  const addToBasket = (newItem: AddToBasketType, newQuantity = 1, override = false) => {
 
     // console.log(newItem)
     const item: any = basketList.filter((item: any) => item.id === newItem.id);
-
-    // console.log("Item added", newItem)
-    // console.log("In basket", basketList)
-    // console.log("Item is in basket", item)
-
     if (item.length > 0) {
       //item is in basket
-      // console.log("Item in basket")
 
-      const newQuantityNotZero = (item[0].quantity + newQuantity > 0)
+      let newQuantityNotZero: boolean;
+      let updatedQuantity: number;
+
+      //If overriding value
+      if (override) {
+        newQuantityNotZero = newQuantity > 0;
+        updatedQuantity = newQuantity;
+      }
+      //If adding to value
+      else {
+        newQuantityNotZero = (item[0].quantity + newQuantity > 0)
+        updatedQuantity = item[0].quantity + newQuantity
+      }
+
+      //If new quantity is not zero
       if (newQuantityNotZero) {
-        // console.log("Updating")
         //update item in basket
-
         setBasketList((basketList: any) => (
-          basketList.map((el: any) => (el.id === newItem.id ? { ...el, quantity: el.quantity + newQuantity } : el))
+          basketList.map((el: any) => (el.id === newItem.id ? { ...el, quantity: updatedQuantity } : el))
         ))
+
+        //Delete item since it is 0
       } else {
-        // console.log("Deleting")
-        //Delete item since new quantity is 0
         setBasketList((basketList) => basketList.filter((item: any) => item.id !== newItem.id))
       }
 
-    } else {
-      // console.log("Adding new")
+      //Element not found 
       //add new item to the basket
-
+    } else {
       setBasketList((basketList) => (
         [
           ...basketList,
@@ -138,6 +144,7 @@ function App() {
             "description": newItem.description,
             "quantity": newQuantity,
             "price": newItem.price,
+            "image": newItem.image
           }
         ]
       ))
@@ -148,7 +155,7 @@ function App() {
   return (
     <div className="App">
       <div className='app-container'>
-        <button onClick={() => checkAuthentication()}>Check authentication</button>
+        {/* <button onClick={() => checkAuthentication()}>Check authentication</button> */}
 
         <Routes>
           <Route path='/' element={
@@ -157,7 +164,7 @@ function App() {
           } >
 
 
-            <Route path='home' element={
+            <Route index element={
               <Home productCategories={productData?.categories} />
             } />
 

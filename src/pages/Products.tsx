@@ -19,7 +19,7 @@ function Products(props: ProductsProps) {
 
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(props.productList)
+  // console.log(props.productList)
 
   //Filtering products
   useEffect(() => {
@@ -77,22 +77,30 @@ function Products(props: ProductsProps) {
 
           <h3>Filter</h3>
           <div id='filter__category'>
-            <label htmlFor="category-input">Category: </label>
-            <select id='category-input' value={filter} onChange={handleCategoryChange}>
-              <option value="all">All</option>
-              {props.categories.map((category: any) => {
-                return <option key={category.id} value={category.category}>{category.category[0].toUpperCase() + category.category.substring(1)}</option>
-              })}
-            </select>
+            <div className='filter-separator'>
+              <label htmlFor="category-input">Category: </label>
+
+              <select id='category-input' value={filter} onChange={handleCategoryChange}>
+                <option value="all">All</option>
+                {props.categories.map((category: any) => {
+                  return <option key={category.id} value={category.category}>{category.category[0].toUpperCase() + category.category.substring(1)}</option>
+                })}
+              </select>
+            </div>
           </div>
 
           <div id='filter__price'>
-            <label>Price:</label>
-            <button onClick={() => handlePriceFilter(0, 5000)}>Any</button>
-            <button onClick={() => handlePriceFilter(0, 20)}>Up to £20</button>
-            <button onClick={() => handlePriceFilter(20, 50)}>£20 to £50</button>
-            <button onClick={() => handlePriceFilter(50, 100)}>£50 to £100</button>
-            <button onClick={() => handlePriceFilter(100, 5000)}>£100 & above</button>
+            <div className='filter-separator'>
+              <label>Price:</label>
+              <div>
+
+                <button className={price[1] === 10000 ? "active" : ""} onClick={() => handlePriceFilter(0, 10000)}>Any</button>
+                <button className={price[1] === 20 ? "active" : ""} onClick={() => handlePriceFilter(0, 20)}>Up to £20</button>
+                <button className={price[1] === 50 ? "active" : ""} onClick={() => handlePriceFilter(20, 50)}>£20 to £50</button>
+                <button className={price[1] === 100 ? "active" : ""} onClick={() => handlePriceFilter(50, 100)}>£50 to £100</button>
+                <button className={price[1] === 5000 ? "active" : ""} onClick={() => handlePriceFilter(100, 5000)}>£100 & above</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

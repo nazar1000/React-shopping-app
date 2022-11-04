@@ -23,7 +23,7 @@ function ProductTile({ product, onClick }: ProductTileType) {
     let pounds = Math.floor(price)
     let pence = Math.round((price - pounds) * 100)
 
-    return <><span>£ </span>{pounds}<span> {pence}</span></>
+    return <><span>£ </span>{pounds}<span> {pence === 0 ? "00" : pence}</span></>
   }
   return (
     <div className='product' key={product.id}>

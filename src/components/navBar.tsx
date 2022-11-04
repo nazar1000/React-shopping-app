@@ -4,7 +4,7 @@ import logo from '../icons/logo.png'
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { Link } from "react-router-dom"
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 
 type NavBarProps = {
   basketTotal: number,
@@ -19,6 +19,7 @@ function NavBar(props: NavBarProps) {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
   const [searchValue, setSearchValue] = useState("")
   const navigate = useNavigate();
+  const location = useLocation()
 
 
   useEffect(() => {
@@ -29,6 +30,10 @@ function NavBar(props: NavBarProps) {
     }
     window.addEventListener('resize', handleResize)
   });
+
+  useEffect(() => {
+    if (windowSize < 510) setOpenNav(false);
+  }, [location])
 
   const closeNav = () => {
     if (windowSize < 510) setOpenNav(false);
@@ -50,18 +55,12 @@ function NavBar(props: NavBarProps) {
 
         <div id='mobile-nav-button' onClick={() => setOpenNav(!openNav)}></div>
 
-
         {(openNav) &&
           <ul id='nav_menu'>
             <li>
-              <Link to="/home">Home</Link> </li>
-
-            {/* <h3 onClick={() => { closeNav(); props.setPage("home"); props.setFormType("products") }}>Home</h3></li> */}
+              <Link to="/">Home</Link> </li>
             <li>
-
               <Link to="products">Product</Link> </li>
-            {/* <h3 onClick={() => { closeNav(); props.setPage("products"); props.setFormType("products") }}>Product</h3></li> */}
-
             {windowSize >= 750 &&
               <div className='search_bar'>
                 <input type="text" onChange={(e) => setSearchValue(e.target.value)} onKeyDown={handleSearch} placeholder='Search' value={searchValue}></input>
@@ -73,12 +72,8 @@ function NavBar(props: NavBarProps) {
                 <>
                   <li>
                     <Link to="login">Login</Link> </li>
-                  {/* <h3 onClick={() => { closeNav(); props.setPage("login"); props.setFormType("login") }}>Login</h3></li> */}
                   <li>
-
                     <Link to="register">Register</Link> </li>
-                  {/* <h3 onClick={() => { closeNav(); props.setPage("login"); props.setFormType("register") }}>Register</h3></li> */}
-
                 </>
               }
 
