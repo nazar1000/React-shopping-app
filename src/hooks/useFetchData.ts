@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react"
 
 type ProductsType = {
@@ -14,7 +13,6 @@ const useFetchData = () => {
   const [productData, setProductData] = useState({ products: <ProductsType>[], categories: <CategoriesType>[] })
 
   const getData = async () => {
-
     await Promise.all([
       fetch('https://fakestoreapi.com/products/').then(res => res.json()),
       fetch('https://fakestoreapi.com/products/categories').then(res => res.json())

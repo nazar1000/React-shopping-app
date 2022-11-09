@@ -1,7 +1,7 @@
 
 import '../styles/product.scss';
 import { useEffect, useState } from 'react';
-import { useNavigate, Outlet, useParams, useLocation } from "react-router-dom"
+import { useNavigate, useParams, useLocation } from "react-router-dom"
 import ProductTile from '../components/ProductTile';
 
 type ProductsProps = {
@@ -41,6 +41,7 @@ function Products(props: ProductsProps) {
         let productName = product.title.toLowerCase();
         let query = search.toLowerCase();
         if (productName.includes(query)) return product;
+        else return false
       })
     }
 

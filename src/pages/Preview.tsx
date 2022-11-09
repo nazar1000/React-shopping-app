@@ -1,7 +1,6 @@
 import '../styles/preview.css';
-import { Routes, Route, useParams, useNavigate, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import useAxiosId from '../hooks/useAxiosId';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+// import useAxiosId from '../hooks/useAxiosId';
 import useFetchID from '../hooks/useFetchID';
 
 type PreviewProps = {
@@ -18,13 +17,9 @@ function Preview(props: PreviewProps) {
   const formatPrice = (price: number) => {
     let pound = Math.floor(price)
     let pence = Math.floor((price - pound) * 100)
-    return "" + pound + "." + pence
+
+    return "" + pound + "." + (pence === 0 ? "00" : pence)
   }
-
-  useEffect(() => {
-    // console.log(product)
-
-  }, [product])
 
   const prepareAddToBasket = (product: any) => {
     props.addToBasket({
@@ -55,7 +50,7 @@ function Preview(props: PreviewProps) {
             <div id='preview-image-div'>
               {/* <img src={product.product_image} /> */}
               {/* <img src=" https://loremflickr.com/250/200/games?random=" /> */}
-              <img src={product.image} />
+              <img src={product.image} alt="Product image" />
             </div>
             <div id='preview-info-div'>
               <h2 className='product-name'>{product.title}</h2>

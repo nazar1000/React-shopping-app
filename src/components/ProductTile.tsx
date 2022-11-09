@@ -30,7 +30,7 @@ function ProductTile({ product, onClick }: ProductTileType) {
       <div className="product-inner-container">
         {/* <div className='product_image' onClick={() => { props.setPreview(product.product_id) }}> */}
         <div className='product_image' onClick={() => onClick(product.category, product.id)}>
-          <img src={product.image} />
+          <img src={product.image} alt={product.title} />
         </div>
         <div className='product_info'>
           <h4 className='product_id'>Code: #{product.id}</h4>

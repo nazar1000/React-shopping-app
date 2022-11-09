@@ -42,7 +42,7 @@ function Register(props: LoginProps) {
       email: formData.email,
       password: formData.password
     }).then((res) => {
-      if (res.data == "userExist") {
+      if (res.data === "userExist") {
         console.log("User already exists")
         setSubmitMessage("User with the specified email already exists")
 

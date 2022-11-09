@@ -2,7 +2,6 @@ import '../styles/basket.scss';
 import { useState, useEffect } from 'react';
 
 type BasketProps = {
-  basketItems: number,
   basketList: {}[],
   addToBasket: Function,
 

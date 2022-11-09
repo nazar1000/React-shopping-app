@@ -11,9 +11,10 @@ import Products from './pages/Products';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import Basket from './pages/Basket';
-import useAxiosData from './hooks/useAxiosData';
+// import useAxiosData from './hooks/useAxiosData';
 import Preview from "./pages/Preview"
 import useFetchData from './hooks/useFetchData';
+import Footer from './components/Footer';
 
 type BasketListType = {
   "id": number,
@@ -25,17 +26,14 @@ type BasketListType = {
 
 function App() {
   const [cookie, setCookie, removeCookie] = useCookies();
-  const [formType, setFormTypes] = useState("login");
 
-  const [loginStatus, setLoginStatus] = useState(cookie.user_name != undefined ? true : false)
+  const [loginStatus, setLoginStatus] = useState(cookie.user_name !== undefined ? true : false)
   const [userInfo, setUserInfo] = useState<any>()
 
   // const { loading, productData } = useAxiosData() //products, categories
   const { loading, productData } = useFetchData() //products, categories
 
   const [basketList, setBasketList] = useState<BasketListType>([]);
-  const [basketItems, setBasketItems] = useState(0);
-
   Axios.defaults.withCredentials = true;
 
   useEffect(() => {
@@ -189,26 +187,6 @@ function App() {
               <Preview addToBasket={addToBasket} />
             }
             />
-            {/* 
-            <Route path="products/:category" element={
-              <Products productList={productData.products} categories={productData.categories}
-                addToBasket={addToBasket} />}
-            /> */}
-
-            {/* 
-            <Route path="products/:searchQuery/:category" element={
-              <Products productList={productData.products} categories={productData.categories}
-                addToBasket={addToBasket} />}
-            /> */}
-
-            {/* <Route path="products/:searchQuery/:category/:product_id" element={
-              <Preview addToBasket={addToBasket} />
-            } */}
-            {/* /> */}
-
-
-
-
 
 
             <Route path="login" element={
@@ -219,13 +197,16 @@ function App() {
             />
 
             <Route path="basket" element={
-              <Basket basketItems={basketItems} basketList={basketList} addToBasket={addToBasket} />}
+              <Basket basketList={basketList} addToBasket={addToBasket} />}
             />
 
           </Route>
         </Routes>
 
+
+
       </div>
+      <Footer />
     </div>
   );
 

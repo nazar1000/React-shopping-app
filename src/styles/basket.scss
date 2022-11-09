@@ -55,6 +55,7 @@
 
           }
 
+          //add and minus buttons
           button {
             width: 30px;
             background-color: #41b5e1;
@@ -62,6 +63,8 @@
             margin: 5px;
             padding: 5px;
             border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
 
             &:nth-of-type(3) {
               width: 100px;

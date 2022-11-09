@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useEffect, useState } from "react"
 
 
@@ -15,7 +14,7 @@ const useFetchID = (productId: string | undefined) => {
     };
 
 
-    const product = fetch(`https://fakestoreapi.com/products/${productId}`)
+    fetch(`https://fakestoreapi.com/products/${productId}`)
       .then(res => res.json())
       .then(data => {
 

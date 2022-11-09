@@ -1,5 +1,7 @@
 .App {
   min-height: 100vh;
+  display: flex;
+  flex-direction: column;
   background-image: url(../icons/sky.jpg);
   /* (CC0 License)  Photo by Pixabay from Pexels: https://www.pexels.com/photo/white-clouds-531767/*/
   background-size: cover;
@@ -17,185 +19,13 @@ h6 {
   padding: 0;
 }
 
-#nav {
-  width: 100%;
-  background-color: #121212;
-  color: white;
-  float: left;
-  position: relative;
-  /* margin-bottom: 20px; */
-
-}
-
-#nav .logo {
-  width: 100px;
-  height: 70px;
-  float: left;
-  margin-left: calc(50% - 50px);
-}
-
-#nav .logo img {}
-
-#nav #mobile-nav-button {
-  width: 80px;
-  height: 70px;
-  float: right;
-  background-color: #2983bf;
-  background-image: url(../icons/mobile-menu-icon.png);
-  background-size: 100% 100%;
-}
-
-#nav ul {
-  list-style-type: none;
-  margin: 0;
-
-  background-color: #121212;
-  position: absolute;
-  padding: 10px 0;
-  z-index: 1;
-  right: 0;
-  top: 70px;
-  width: 100%;
-}
-
-#nav ul li {
+.footer {
+  margin-top: auto;
   text-align: center;
-}
-
-#nav ul li a {
-  width: 100%;
-  cursor: pointer;
-  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0.404);
   color: white;
-  font-size: 16px;
-  padding: 15px 0;
-  display: block;
-
 }
 
-#nav ul li a:hover {
-  text-decoration: underline;
-}
-
-#nav .search_bar {
-  width: clamp(250px, 90%, 400px);
-  margin: 12px auto;
-  clear: both;
-}
-
-#nav.search_bar:nth-of-type(1) {
-  display: none;
-}
-
-#nav .search_bar:nth-of-type(2) {
-  display: none;
-}
-
-
-
-.search_bar input {
-  width: calc(100% - 54px);
-  border-width: 1px 0 1px 1px;
-  padding: 7px 4px;
-  font-size: 19px;
-  float: left;
-  background-color: #aed7f0;
-  border-radius: 5px 0 0 5px;
-
-}
-
-.search_bar img {
-  width: 18px;
-  padding: 9px 12px;
-  background-color: lightskyblue;
-  border-width: 1px 1px 1px 0;
-  border-style: solid;
-  border-color: black;
-  border-radius: 0 10px 10px 0;
-  cursor: pointer;
-}
-
-
-#nav .basket_button {
-  width: 80px;
-  cursor: pointer;
-  /* float: right; */
-  margin: 10px auto;
-
-}
-
-.basket_button img {
-  width: 50px;
-  float: left;
-}
-
-.basket_button h3 {
-  width: 30px;
-  padding: 7px 0;
-  font-size: 23px;
-  float: left;
-  color: #00a2e8;
-
-}
-
-.basket_button:hover h3 {
-  text-decoration: underline;
-}
-
-#nav #login_menu {
-  float: right;
-}
-
-
-
-
-@media only screen and (min-width: 510px) {
-
-  #nav .logo {
-
-    margin-left: 0;
-  }
-
-  #mobile-nav-button {
-    display: none;
-  }
-
-  #nav ul {
-    position: initial;
-  }
-
-  #nav ul li {
-    float: left;
-    padding: 20px 4px;
-  }
-
-  #nav ul li a {
-    display: inline;
-    padding: 15px 5px;
-  }
-
-  #nav #login-menu {
-    float: right;
-  }
-
-  #nav .basket_button {
-    float: left;
-  }
-
-
-
-
-
-}
-
-@media only screen and (min-width: 750px) {
-
-
-  #nav .search_bar {
-    width: clamp(100px, calc(80% - 400px), 400px);
-    float: left;
-    max-width: 500px;
-    margin: 12px 20px;
-    clear: none;
-  }
+.footer a {
+  color: white;
 }
